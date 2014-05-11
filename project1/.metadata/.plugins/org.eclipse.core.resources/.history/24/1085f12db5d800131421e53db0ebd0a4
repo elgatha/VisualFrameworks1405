@@ -1,0 +1,71 @@
+var me = ["Hello! My name is Elgatha Lee", "Everyone calls me Apple", "Today, May 10 is my birthday!", "I'm originally from The Bahamas", "A small island known as Nassau", "I'm an Executive Chef", "but I wanted to learn a new skill", "so I enrolled in MDV at Full Sail", "so far, it's been meh!", "by the way I love Helvetica!"];
+
+var i=0;
+
+var callMyText;
+
+var displayTextForward = function(){
+
+	var messageView = Ti.UI.createView({
+		backgroundColor: "#333",
+		borderColor: "#000",
+		borderRadius: 5,
+		borderWidth: 5,
+		width: 100,
+		height: 100,
+		top: 20,
+		left: 20,
+		right: 20
+	});
+
+	callMyText = Ti.Ui.createLabel({
+		text: me[i],
+		font: {fontSize: 20, FontFamily: "Helvetica"},
+		textAlign: "center",
+	});
+
+	messageView.add(callMyText);
+	mainWindow.add(messageView);
+
+	if (callMyText[i] == "by the way I love Helvetica!"){
+		i = 0;
+	} else {
+		i++;
+	}
+};
+
+var displayTextBackward = function(){
+
+	if (callMyText[i] == "Hello! My name is Elgatha Lee"){
+		i = 0;
+	} else {
+		i--;
+	}
+
+		var messageView = Ti.UI.createView({
+		backgroundColor: "#333",
+		borderColor: "#000",
+		borderRadius: 5,
+		borderWidth: 5,
+		width: 100,
+		height: 100,
+		top: 20,
+		left: 20,
+		right: 20
+
+
+});
+
+	messageText = Ti.UI.createLabel({
+		text: callMyText[i],
+		font: {fontSize: 20, FontFamily: "Helvetica"},
+		textAlign: "center",
+	});
+
+	messageView.add(messageText);
+	mainWindow.add(messageView);
+
+};
+
+buttonRightView.addEventListener("click", displayTextForward);
+buttonLEftView.addEventListener("click", displayTextBackward);
