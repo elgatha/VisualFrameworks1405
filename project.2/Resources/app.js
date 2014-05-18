@@ -2,10 +2,14 @@ Titanium.UI.setBackgroundColor("#fff");
 
 //elgatha lee
 
-var superfoods = [{title: "Eggs"}, {title: "Walnuts"}, {title: "Tomato Sauce"}, {title: "Dried Plums"}, {title: "Brussels Sprouts"}, {title: "Acai Juice"}, {title: "Apples"}, {title: "Bok Choy"},];
+var superFoods = [{title: "Brussels sprouts", description: "They have more glucosinolates (compounds that combat cancer and detoxify our bodies) than any other vegetable."}, 
+				{title: "Bok choy", description: "This calcium-rich veggie can protect your bones and may even ward off PMS symptoms."}];
+var superFoodsFruits = [{title: "Acai Juice", description: "A glass or two of this anthocyanin-rich berry juice can dramatically boost the amount of antioxidants in your blood, say Texas A&M University researchers."},
+				{title: "Apples", description: "They contain quercetin, an antioxidant that may reduce your risk of lung cancer."}]; 
+
 
 var mainWindow = Ti.UI.createWindow({
-	backgroundColor: "#ccc"
+	backgroundColor: "#fff"
 });
 
 var titleView = Ti.UI.createView({
@@ -15,80 +19,134 @@ var titleView = Ti.UI.createView({
 });
 
 var border = Ti.UI.createView({
-	backgroundColor: "#dbdbdb",
-	height: 1,
+	backgroundColor: "#360",
+	height: 4,
 	top: titleView.height + titleView.top
 });
 
 var titleLabel = Ti.UI.createLabel({
-	text: "SuperFoods Rule",
-	font: {fontSize: 30, fontFamily: "Helvetica", fontWeight: "bold"},
+	text: "SUPERFOODS RULE!",
+	font: {fontSize: 27, fontFamily: "Helvetica"},
 	top: 30,
 	width: "100%",
 	textAlign: "center"
 });
 
 var ingredients = Ti.UI.createTableView({
+	data: superFoods,
 	top: border.top + border.height
 });
 
-if(Ti.Platform.name === "iphone OS") {
+if(Ti.Platform.name === "iPhone OS") {
 	ingredients.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
 }
 
-var superfoodsSection = Ti.UI.createTableViewSection({
-	headerTitle: "SUPERFOODS",
-	footerTitle: "SuperFoods To Make You SUPER!"
+var superFoodsSection = Ti.UI.createTableViewSection({
+	headerTitle: "SUPERFOODS VEGETABLES",
+	footerTitle: "Information On Your Favourite SuperFood"
+});
+
+var superFoodsFruitsSection = Ti.UI.createTableViewSection({
+	headerTitle: "SUPERFOODS FRUITS",
+	footerTitle: "Information On Your Favourite SuperFood Fruit"
 });
 
 var getDetail = function(){
 	var detailWindow = Ti.UI.createWindow({
-		backgroundColor: "#ccc"
+		backgroundColor: "#fff"
+	});
+	var detailTitleView = Ti.UI.createView({
+		height: 70,
+		backgroundColor: "#fff", 
+		top: 0
 	});
 	
-var detailTitleView = Ti.UI.createView({
-	height: 70,
-	backgroundColor: "#fff",
-	top: 0
-});
-
-var detailTitleBorder = Ti.UI.createView({
-	backgroundColor: "#dbdbdb",
-	height: 1,
-	top: detailTitleView.height + detailTitleView.top
-});
-
-var detailTitleLabel = Ti.UI.createLabel({
-	text: this.title,
-	font: {fontSize: 30, fontFamily: "Helvetica", fontWeight: "bold"},
-	top: 30,
-	width: "100%",
-	textAlign: "center"
-});	
+	var detailBorder = Ti.UI.createView({
+		backgroundColor: "#690",
+		height: 4,
+		top: detailTitleView.height + detailTitleView.top
+	});
+	
+	var detailTitleLabel = Ti.UI.createLabel({
+		text: this.title,
+		font: {fontSize: 35, fontFamily: "Helvetica"},
+		top:25,
+		width: "100%",
+		textAlign: "center"
+	});	
+	
+	var detailText = Ti.UI.createLabel({
+		text: this.info,
+		font: {fontSize: 25, fontFamily: "Helvetica"},
+		top: detailBorder.height + detailBorder.top + 40,
+		top: 100,
+		right: 35,
+		left: 35,
+		textAlign: "center"
+	});
+	
+	var endButton = Ti.UI.createLabel({
+		text: "DONE",
+		backgroundColor: "#360",
+		color: "#FCO",
+		height: 50,
+		font: {fontSize: 30, fontFamily: "Helvetica"},
+		width: "100%",
+		bottom: 0,
+		textAlign: "center"
+	});
+	
+	
+	var closeWindow = function(){
+		detailWindow.close();
+	};
+	
+	endButton.addEventListener("click", closeWindow);
+	
 	detailTitleView.add(detailTitleLabel);
-	detailWindow.add(detailTitleView.detailTitleBorder);
+	detailWindow.add(detailTitleView, detailBorder, detailText, endButton);
+	
+	detailWindow.open({transition: Ti.UI.iPhone.AnimationStyle.FLIP_FROM_RIGHT});
+	
+	detailWindow.open();
+	 
 };
 
-for(var i=0, j=superfoods.length; i<j; i++){
+for(var i=0, j=superFoods.length; i<j; i++){
 	var theRow = Ti.UI.createTableViewRow({
-		title: superfoods[i].title,
-		hasChild:true,
+		title: superFoods[i].title,
+		info: superFoods[i].description,
+		hasChild: true
 	});
 	
-	if(Ti.Platform.name === "iphone OS") {
-		theRow.hasChild = false;
-		theRow.hasDetail = true;
+	if(Ti.Platform.name === "iPhone OS") {
+	theRow.hasChild = false;
+	theRow.hasDetail = true;
 	}
 	
-	superfoodsSection.add(theRow);
+	superFoodsSection.add(theRow);
 	theRow.addEventListener("click", getDetail);
 }
 
-var ingredientsSections = [superfoodsSection];
 
-ingredients.setData(ingredientsSections);
+for(var i=0, j=superFoodsFruits.length; i<j; i++){
+	var theRow = Ti.UI.createTableViewRow({
+		title: superFoodsFruits[i].title,
+		info: superFoodsFruits[i].description,
+		hasChild: true
+	});
+	
+	if(Ti.Platform.name === "iPhone OS") {
+	theRow.hasChild = false;
+	theRow.hasDetail = true;
+	}
+	
+	superFoodsFruitsSection.add(theRow);
+	theRow.addEventListener("click", getDetail);
+} 
+var ingredientsSection = [superFoodsSection, superFoodsFruitsSection];
+ingredients.setData(ingredientsSection);
 
-var superfoodsFile = require('superfoods');
 titleView.add(titleLabel);
 mainWindow.add(titleView, border, ingredients);
 mainWindow.open();
