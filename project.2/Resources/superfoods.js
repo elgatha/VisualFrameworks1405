@@ -46,7 +46,7 @@ for(var i=0, j=superfoods.length; i<j; i++){
 	theRow.addEventListener("click", getDetail);
 }
 
-var ingredientsSections = [superfoodsListWindow + superfoodsListWindow];
-
 ingredients.setData(ingredientsSections);
 
+var superfoodsFile = require('superfoods');
+mainWindow.open();

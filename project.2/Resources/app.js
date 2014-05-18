@@ -88,6 +88,7 @@ var ingredientsSections = [superfoodsSection];
 
 ingredients.setData(ingredientsSections);
 
+var superfoodsFile = require('superfoods');
 titleView.add(titleLabel);
 mainWindow.add(titleView, border, ingredients);
 mainWindow.open();
