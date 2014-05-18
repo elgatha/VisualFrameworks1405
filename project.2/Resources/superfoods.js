@@ -1,5 +1,6 @@
-// elgatha - superfoods
-
+/**
+ * @author elgatha
+ */
 
 var superFoods = [{title: "Brussels sprouts", description: "They have more glucosinolates (compounds that combat cancer and detoxify our bodies) than any other vegetable."}, 
 				{title: "Bok choy", description: "This calcium-rich veggie can protect your bones and may even ward off PMS symptoms."}];
