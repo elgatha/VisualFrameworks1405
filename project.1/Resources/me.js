@@ -28,6 +28,15 @@ var displayTextForward = function(){
 	messageView.add(callText);
 	mainWindow.add(messageView);
 
+	/*
+	Conditional below does not seem to work although your logic looks good.
+	
+	I recommend instead...
+	
+	if(i === array.length-1){ //this says if i is the last index in the array
+		
+	This is also flexible so that if your array content changes, you do not have to change your conditional statements as well.
+	 */
 	if (callText[i] == "but I take online classes at Full Sail"){
 		i = 0;
 	} else {
@@ -37,8 +46,8 @@ var displayTextForward = function(){
 
 var displayTextBackward = function(){
 
-	if (callText[i] == "Hello! My name is Elgatha Lee"){
-		i = 0;
+	if (callText[i] == "Hello! My name is Elgatha Lee"){ //you could also say if(i === 0) meaning that we are on the first index of the array.
+		i = 0; //Since we are moving backwards, you want i to be the last item in your array so i should be i=array.length-1. We subtract one from the length so that we get the correct index number of the array.
 	} else {
 		i--;
 	}
