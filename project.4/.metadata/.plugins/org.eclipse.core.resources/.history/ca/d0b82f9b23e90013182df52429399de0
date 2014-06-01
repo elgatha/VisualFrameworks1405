@@ -41,7 +41,7 @@ var infoView = Ti.UI.createView({
 });
 
 var infoLabel = Ti.UI.createLabel({
-	text: "Family Info",
+	text: "Info Window",
 	font: {fontSize: 25, fontFamily: "helvetica"},
 	color: "#000",
 	left: 20
@@ -57,7 +57,7 @@ var customView = Ti.UI.createView({
 });
 
 var customLabel = Ti.UI.createLabel({
-	text: "Custom",
+	text: "Custom Window",
 	font: {fontSize: 25, fontFamily: "Helvetica"},
 	color: "#000",
 	left: 20
