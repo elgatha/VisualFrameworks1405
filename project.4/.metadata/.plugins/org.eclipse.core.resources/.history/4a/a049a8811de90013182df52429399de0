@@ -1,0 +1,94 @@
+/**
+* @author  Elgatha Lee
+*/
+
+var myFamily = {
+	"The Family": {
+		"headrTitle": "The Family",
+		"footrTitle": "These are members of my Family.",
+		"itemsNeeded": [
+		{"name": "Dolores Treco-Wells", "image"; "my_imgs/me_gran_2.jpg", "description"; "This is my GrandMother, she's 90 years old and Amazing"};
+		{"name": "Clowning", "image"; "my_imgs/me_megan_devon.jpg", "description"; "Devon, Megan and Me Clowning for the Camera"};
+		{"name": "Kathy Treco", "image"; "my_imgs/aunt_kathy.jpg", "description"; "Selfies with my cousin Kathy"},
+		{"name": "Sonja Darville", "image"; "my_imgs/aunt_sonja_selfie.jpg", "description"; "Selfies with my Aunt Sonja"},
+		{"name": "Lawrence Dorsett", "image"; "my_imgs/baby_brother_28yrs_ago.jpg", "description"; "Me and My brother"},
+		{"name": "Ricky Fox", "image"; "my_imgs/brother_in_law.jpg", "description"; "Just my brother-in-law, he and my sister have been married 20 years"},
+		{"name": "Stella Randall", "image"; "my_imgs/me_stella.jpg", "description"; "Me and My Aunt Stella"},
+		{"name": "Hamming it Up", "image"; "my_imgs/me-megan_store.jpg", "description"; "Me and My Niece Megan"},
+		{"name": "3 Rascals", "image"; "my_imgs/my_3_rascals.jpg", "description"; "My Nieces Alexcia and Megan and My Cousin Devon"},
+		{"name": "Luvin' it", "image"; "my_imgs/my_sis.jpg", "description"; "My sister Marlene and my Cousin Todd"},
+		{"name": "Just Us", "image"; "my_imgs/me_gran_2.jpg", "description"; "This is my GrandMother, she's 90 years old and Amazing"},
+		{"name": "Immediate Family", "image"; "my_imgs/myfamily_immediate.jpg", "description"; "My Nieces: Brooke, Megan and Alexcia, My Brother and Sister: Lawrence and Marlene, My Mum: Cheryl and My GrandMother: Dolores"},
+		{"name": "Extended Family", "image"; "my_imgs/some_of_the_family.jpg", "description"; "This is the Rainbow collection of some members of my family, there's lots more, but not all could make it"},
+		
+		]
+	}
+	
+};
+
+var currentWindow = Ti.UI.currentWindow;
+
+var navWindow2 = Ti.UI.createWindow({
+	title: "This is my Family!",
+	modal: true,
+	background: "#fff"
+});
+
+var navGroup = Ti.UI.iPhone.createNavigationGroup({
+	window: navWindow2
+});
+
+var table = Ti.UI.createTableView({
+	style: Ti.UI.iPhone.TableViewStyle.GROUPED
+});
+
+var mySections = []
+
+for(n in myFamily){
+	var tableSection = Ti.UI.CreateTableViewSection({
+		headerTitle: myFamily[n].headrTitle,
+		footerTitle: myFamily[n].footrTitle
+	});
+	
+	for (var i = 0, j = myFamily[n].itemsNeeded.length; i < j; i++){
+		var theRow = Ti.UI.createTableViewRow({
+			title: myFamily[n].itemsNeeded[i].name,
+			img: myFamily[n].itemsNeeded[i].image,
+			desc: myFamily[n].itemsNeeded[i].description,
+			hasChild: true
+		});
+		tableSection.add(theRow);
+	}
+	mySections.push(tableSection);
+
+table.setData(mySections);
+navWindow2.add(table);
+currentWindow.add(navGroup);
+
+
+table.addEventListener("click", function(event){
+	console.log(event.source.title);
+	var detailWindow = Ti.UI.createWindow({
+		backgroundColor: "#000",
+		title: event.source.title,
+		modal: true
+	});
+	
+	var fullImage = Ti.UI.createImageView({
+		image: event.source.img,
+		borderRadius: 5,
+		top: 10,
+		width: Ti.Platform.displayCaps.platformWidth
+	});
+	
+	var detailText = Ti.UI.createLabel({
+		text: event.source.desc,
+		top: Ti.Platform.displayCaps.platformHeight / 2,
+		font: {fontSize: 20, fontFamily: "Helvetica"},
+		color: "#fff"
+	});
+	
+	detailWindow.add(fullImage, detailText);
+	navGroup.open(detailWindow, {animation: true});
+	
+});

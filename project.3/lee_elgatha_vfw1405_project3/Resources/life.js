@@ -9,7 +9,7 @@ var dirList = imageList.getDirectoryListing();
 var numberOfViews = dirList.length;
 var numberOfColumns = 4;
 
-var newTop = 20;
+var newTop = 10;
 
 var getInfo = function(){
 	var infoWindow = Ti.UI.createWindow({
@@ -21,7 +21,7 @@ var getInfo = function(){
 	var fullImage = Ti.UI.createImageView({
 		image: this.image,
 		borderRadius: 4,
-		top: 100,
+		top: 50,
 		width: Ti.Platform.displayCaps.platformWidth
 	});
 	infoWindow.add(fullImage);
